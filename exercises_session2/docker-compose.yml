@@ -1,0 +1,32 @@
+services:
+  serv1:
+    image: busybox
+    command: sleep infinity
+    volumes:
+      - data:/data
+    networks:
+      - mynet1
+
+  serv2:
+    image: busybox
+    command: sleep infinity
+    volumes:
+      - data:/data
+    networks:
+      - mynet2
+
+volumes:
+  data:
+
+networks:
+  mynet1:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "10.0.2.0/24"
+
+  mynet2:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "10.0.3.0/24"
