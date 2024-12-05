@@ -1,27 +1,21 @@
-# Physical Layer
-
-### FTP CLIENT
-
-## Data link Layer
-
-### 
-
-# Network Layer
-
-### UDP
-
-# Transport Layer
-
-### FTP
-
-# Session Layer
-
-### PPP
-
-# Presentation Layer
-
-### BRIDGE
 
 # Application Layer
+### File Transfer Protocol (FTP) Client
 
-### ROUTER
+# Presentation Layer
+### PNG (Image Format)
+
+# Session Layer
+### Establishment and management of FTP connections
+
+# Transport Layer
+### Transmission Control Protocol (TCP)
+
+# Network Layer
+### Routing Information Protocol (RIP)
+
+# Data Link Layer
+### Bridges
+
+# Physical Layer
+### Hub

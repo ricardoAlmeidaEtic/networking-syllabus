@@ -1,23 +1,21 @@
-services:
-  web:
-    image: python:3.12-slim
-    working_dir: /app
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
-    networks:
-      - app-network
+version: '3.9'
 
-  web-1:
-    image: python:3.12-slim
-    working_dir: /app2
-    volumes:
-      - ./app2:/app2
-    ports:
-      - "8001:8001"
+services:
+  web-ipv4:
+    image: busybox
+    command: sleep 3600
     networks:
       - app-network
+    ports:
+      - "0.0.0.0:8000:8000"
+
+  web-ipv6:
+    image: busybox
+    command: sleep 3600
+    networks:
+      - app-network
+    ports:
+      - "[::]:8000:8000"
 
 networks:
   app-network:
