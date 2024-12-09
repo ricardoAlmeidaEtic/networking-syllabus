@@ -1,0 +1,14 @@
+entryPoints:
+  http:
+    address: ":80"
+  traefik:
+    address: ":8080"  # Use a separate entry point for the dashboard
+
+api:
+  dashboard: true  # Enable Traefik's dashboard
+  insecure: true   # Allow access without authentication (not recommended for production)
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false

@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    ports:
+      - "80:80"        
+      - "8080:8080"    
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.yml:/etc/traefik/traefik.yml
+    networks:
+      - mynetwork
+
+  backend1:
+    image: nginx:latest
+    container_name: backend1
+    networks:
+      - mynetwork
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend1.rule=PathPrefix(`/backend1`)"
+      - "traefik.http.middlewares.backend1-strip.stripPrefix.prefixes=/backend1"
+      - "traefik.http.routers.backend1.middlewares=backend1-strip"
+      - "traefik.http.services.backend1.loadbalancer.server.port=80"
+
+  backend2:
+    image: nginx:latest
+    container_name: backend2
+    networks:
+      - mynetwork
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend2.rule=PathPrefix(`/backend2`)"
+      - "traefik.http.middlewares.backend2-strip.stripPrefix.prefixes=/backend2"
+      - "traefik.http.routers.backend2.middlewares=backend2-strip"
+      - "traefik.http.services.backend2.loadbalancer.server.port=80"
+
+networks:
+  mynetwork:
+    driver: bridge
