@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  nginx-proxy:
+    image: nginx:latest
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-proxy.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/certs:ro
+    networks:
+      - mynetwork
+
+  backend1:
+    image: nginx:latest
+    container_name: backend1
+    volumes:
+      - ./backend1:/usr/share/nginx/html:ro
+    networks:
+      - mynetwork
+
+  backend2:
+    image: nginx:latest
+    container_name: backend2
+    volumes:
+      - ./backend2:/usr/share/nginx/html:ro
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
